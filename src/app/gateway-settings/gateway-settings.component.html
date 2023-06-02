@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <mat-toolbar class="toolbar">
+        <!-- <div class="row"> -->
+        <div class="col-lg-3">
+          <span class="toolbar-text">Gateway Settings</span>
+        </div>
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline" class="form-outline">
+            <mat-select>
+              <mat-option *ngFor="let region of regions" [value]="region">
+                {{ region }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field appearance="outline" class="form-outline">
+            <mat-select
+              [formControl]="gatewaySettingsForm"
+              multiple
+              (selectionChange)="onSelectionChange($event)"
+            >
+              <mat-option *ngFor="let key of gatewayKeys" [value]="key">
+                {{ key }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2">
+          <button mat-icon-button class="save-button">Save</button>
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <mat-tab-group>
+        <mat-tab
+          *ngFor="let key of selectedSettings"
+          [label]="key"
+          class="selectedSettings"
+        >
+          <ng-template mat-tab-label>
+            <span>{{ key }}</span>
+            <span>
+              <mat-icon class="close-icon" (click)="removeTab(key)"
+                >close</mat-icon
+              ></span
+            >
+          </ng-template>
+
+          {{ gatewaySettings[key] }}
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
